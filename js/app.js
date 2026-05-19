@@ -218,14 +218,6 @@ async function initMap() {
   // Map click → district name popup
   map.on("click", e => handleMapClick(e));
 
-  // Panel collapse toggle
-  document.getElementById("panel-toggle").addEventListener("click", () => {
-    const panel     = document.getElementById("summary-panel");
-    const btn       = document.getElementById("panel-toggle");
-    const collapsed = panel.classList.toggle("collapsed");
-    btn.setAttribute("aria-expanded", String(!collapsed));
-  });
-
   preloadAllImages();
   updateLegend();
   updateMetadataPanel();
