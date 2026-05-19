@@ -163,7 +163,10 @@ html, body {
   border: 2px dashed #1a7a1a;
 }
 
-/* Data limitation note */
+/* Push Leaflet's attribution control above the time slider bar */
+.leaflet-bottom.leaflet-right {
+  bottom: 52px;
+}
 .data-limitation-note {
   margin-top: 10px;
   padding: 8px 10px;

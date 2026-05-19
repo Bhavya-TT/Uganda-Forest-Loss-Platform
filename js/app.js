@@ -159,7 +159,7 @@ async function initMap() {
 
   // Base map
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors | <a href="https://leafletjs.com" target="_blank">Leaflet</a>',
     maxZoom: 19,
   }).addTo(map);
 
