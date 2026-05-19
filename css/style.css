@@ -1,0 +1,182 @@
+/* ==========================================================================
+   Uganda Forest Loss and Land Use Change Mapping Platform — style.css
+   Requirements: 5.1, 5.7, 11.5
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px; color: #222; background: #1a1a2e;
+}
+
+/* Map — full viewport */
+#map {
+  position: fixed; inset: 0;
+  width: 100vw; height: 100vh;
+  background: #a8c8e8;
+}
+
+/* Summary panel — fixed right */
+.summary-panel {
+  position: fixed; top: 0; right: 0;
+  width: 300px; height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0,0,0,.25);
+  z-index: 1000;
+  display: flex; flex-direction: column; overflow: hidden;
+  transition: transform .3s ease;
+}
+.summary-panel.collapsed { transform: translateX(calc(100% - 36px)); }
+
+.panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px; background: #2d6a4f; color: #fff; flex-shrink: 0;
+}
+.panel-title { font-size: 13px; font-weight: 600; line-height: 1.3; flex: 1; margin-right: 8px; }
+.panel-toggle-btn {
+  background: transparent; border: 1px solid rgba(255,255,255,.5); color: #fff;
+  width: 28px; height: 28px; border-radius: 4px; cursor: pointer; font-size: 12px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.panel-toggle-btn:hover, .panel-toggle-btn:focus {
+  background: rgba(255,255,255,.2); outline: 2px solid #fff; outline-offset: 2px;
+}
+
+.panel-content {
+  flex: 1; overflow-y: auto; padding: 14px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.section-heading {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; color: #555; margin-bottom: 8px;
+  padding-bottom: 4px; border-bottom: 1px solid #e0e0e0;
+}
+
+.stats-content { font-size: 13px; line-height: 1.6; }
+.stats-loading { color: #888; font-style: italic; }
+.stats-unavailable { color: #c0392b; font-style: italic; }
+.stats-no-data { color: #888; font-style: italic; }
+
+.stats-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.stats-table th, .stats-table td {
+  text-align: left; padding: 4px 6px; border-bottom: 1px solid #f0f0f0;
+}
+.stats-table th { font-weight: 600; color: #444; background: #f8f8f8; }
+.stats-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.stats-district-note { font-size: 11px; color: #888; margin-top: 6px; font-style: italic; }
+
+.metadata-content { font-size: 12px; line-height: 1.5; color: #555; }
+.metadata-item {
+  margin-bottom: 8px; padding: 6px 8px;
+  background: #f8f9fa; border-radius: 4px; border-left: 3px solid #2d6a4f;
+}
+.metadata-item strong {
+  display: block; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .04em; color: #333; margin-bottom: 2px;
+}
+
+.attribution-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid #e0e0e0; }
+.attribution-list { list-style: none; font-size: 11px; color: #666; line-height: 1.6; }
+.attribution-list li { margin-bottom: 2px; }
+.attribution-list a { color: #2d6a4f; text-decoration: none; }
+.attribution-list a:hover { text-decoration: underline; }
+
+/* Time slider bar — fixed bottom */
+.time-slider-bar {
+  position: fixed; bottom: 0; left: 0; right: 300px;
+  background: rgba(20,20,30,.82); backdrop-filter: blur(4px);
+  padding: 8px 16px; z-index: 1000;
+  display: flex; align-items: center; gap: 12px; min-height: 52px;
+}
+.year-display { color: #fff; font-size: 13px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+#current-year-label { font-size: 16px; font-variant-numeric: tabular-nums; }
+
+/* Legend overlay — bottom-left */
+.map-overlay#legend {
+  position: absolute; bottom: 64px; left: 10px;
+  background: #fff; border-radius: 6px; padding: 10px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2); z-index: 999;
+  min-width: 160px; max-width: 220px;
+}
+.legend-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #444; margin-bottom: 8px; }
+.legend-list { list-style: none; font-size: 12px; line-height: 1.6; }
+.legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.legend-swatch { width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0; border: 1px solid rgba(0,0,0,.15); }
+.legend-swatch--forest-cover { background: linear-gradient(135deg, #edf8e9 0%, #006d2c 100%); }
+.legend-swatch--urban-extent { background: #d73027; }
+.legend-swatch--agricultural-land { background: #fee08b; }
+.legend-swatch--admin-boundaries { background: transparent; border: 2px solid #333; }
+
+/* Popup */
+.popup-content { font-size: 13px; line-height: 1.6; min-width: 160px; }
+.popup-content strong { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #555; margin-bottom: 4px; }
+.popup-no-data { color: #888; font-style: italic; }
+
+/* Responsive */
+@media (max-width: 767px) {
+  .summary-panel { top: auto; bottom: 0; right: 0; left: 0; width: 100%; height: 40vh; max-height: 320px; border-radius: 12px 12px 0 0; }
+  .summary-panel.collapsed { transform: translateY(calc(100% - 44px)); }
+  .time-slider-bar { right: 0; }
+  .map-overlay#legend { bottom: 56px; left: 8px; }
+}
+
+:focus-visible { outline: 2px solid #2d6a4f; outline-offset: 2px; }
+
+/* Layer toggle panel — top-left of map */
+.layer-panel {
+  position: absolute;
+  top: 10px;
+  left: 50px; /* clear of zoom controls */
+  background: #fff;
+  border-radius: 6px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  z-index: 1000;
+  min-width: 160px;
+}
+.layer-panel-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #444;
+  margin-bottom: 8px;
+}
+.layer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+.layer-toggle input { cursor: pointer; }
+
+/* Forest reserves swatch */
+.legend-swatch--forest-reserves {
+  background: rgba(45, 158, 45, 0.25);
+  border: 2px dashed #1a7a1a;
+}
+
+/* Data limitation note */
+.data-limitation-note {
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: #fff8e1;
+  border-left: 3px solid #f9a825;
+  border-radius: 3px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #555;
+}
+.data-limitation-note strong {
+  display: block;
+  font-size: 11px;
+  color: #e65100;
+  margin-bottom: 3px;
+}

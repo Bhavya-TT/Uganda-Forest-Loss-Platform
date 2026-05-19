@@ -1,0 +1,20 @@
+{
+  "name": "uganda-forest-loss-frontend",
+  "version": "1.0.0",
+  "description": "Leaflet.js frontend for the Uganda Forest Loss and Land Use Change Mapping Platform",
+  "private": true,
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --testPathPattern=frontend/tests"
+  },
+  "devDependencies": {
+    "fast-check": "3.19.0",
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/frontend/tests/**/*.js"
+    ]
+  }
+}

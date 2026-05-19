@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uganda Forest Loss and Land Use Change Mapping Platform</title>
+  <meta name="description" content="Interactive map showing annual forest loss, urban growth, and agricultural land expansion across Uganda from 2000 to 2025." />
+
+  <!-- Leaflet 1.9.4 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin="anonymous" />
+
+  <!-- Leaflet.TimeDimension removed - using custom time slider instead -->
+
+  <!-- Application styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Full-viewport map -->
+  <div id="map" role="application"
+    aria-label="Interactive map of Uganda showing forest cover, urban extent, and agricultural land layers"
+    tabindex="0"></div>
+
+  <!-- Layer toggle panel -->
+  <div id="layer-panel" class="map-overlay layer-panel" aria-label="Layer controls">
+    <strong class="layer-panel-title">Layers</strong>
+    <label class="layer-toggle"><input type="checkbox" id="toggle-forest" checked> Forest Cover</label>
+    <label class="layer-toggle"><input type="checkbox" id="toggle-urban" checked> Urban Extent</label>
+    <label class="layer-toggle"><input type="checkbox" id="toggle-agri" checked> Agricultural Land</label>
+    <label class="layer-toggle"><input type="checkbox" id="toggle-reserves" checked> Forest Reserves</label>
+    <label class="layer-toggle"><input type="checkbox" id="toggle-admin"> Admin Boundaries</label>
+  </div>
+
+  <!-- Legend overlay -->
+  <aside id="legend" class="map-overlay" aria-label="Map legend" aria-live="polite">
+    <h2 class="legend-title">Legend</h2>
+    <ul id="legend-list" class="legend-list" role="list"></ul>
+  </aside>
+
+  <!-- Time slider bar -->
+  <div id="time-slider-container" class="time-slider-bar" aria-label="Time navigation controls">
+    <div id="time-dimension-control"></div>
+    <div class="year-display" aria-live="polite" aria-atomic="true">
+      Year: <span id="current-year-label">2000</span>
+    </div>
+  </div>
+
+  <!-- Summary / statistics panel -->
+  <aside id="summary-panel" class="summary-panel" aria-label="Land use change statistics" aria-live="polite">
+    <header class="panel-header">
+      <h1 class="panel-title">Uganda Forest Loss &amp; Land Use Change</h1>
+      <button id="panel-toggle" class="panel-toggle-btn" aria-expanded="true"
+        aria-controls="panel-content" aria-label="Collapse statistics panel" type="button">&#x25B6;</button>
+    </header>
+    <div id="panel-content" class="panel-content">
+      <section aria-labelledby="stats-heading">
+        <h2 id="stats-heading" class="section-heading">
+          Statistics — <span id="stats-scope-label">National</span>
+        </h2>
+        <div id="stats-content" class="stats-content">
+          <p class="stats-loading">Loading statistics…</p>
+        </div>
+      </section>
+      <section aria-labelledby="meta-heading">
+        <h2 id="meta-heading" class="section-heading">Layer Information</h2>
+        <div id="metadata-content" class="metadata-content"></div>
+        <div class="data-limitation-note">
+          <strong>⚠ Data Limitation</strong>
+          The forest cover layer uses the Hansen Global Forest Change dataset, which defines forest as areas with &gt;30% canopy cover. Areas with degraded or open-canopy forest (e.g. some national parks and wildlife reserves) may appear as forest loss even where tree cover persists. The Forest Reserves layer (OSM) shows officially designated protected areas for reference.
+        </div>
+      </section>
+      <footer class="attribution-footer" aria-label="Data attribution">
+        <h2 class="section-heading">Data Sources</h2>
+        <ul class="attribution-list" role="list">
+          <li><strong>Forest Cover:</strong> Hansen/UMD/Google/USGS/NASA</li>
+          <li><strong>Land Cover:</strong> ESA WorldCover</li>
+          <li><strong>Urban Extent:</strong> GHSL — Global Human Settlement Layer</li>
+          <li><strong>Agricultural Land:</strong> GLAD Annual Land Cover</li>
+          <li><strong>Admin Boundaries:</strong> GADM</li>
+          <li><strong>Base Map:</strong> &copy; <a href="https://www.openstreetmap.org/copyright"
+              target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors</li>
+        </ul>
+      </footer>
+    </div>
+  </aside>
+
+  <!-- Leaflet 1.9.4 -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin="anonymous"></script>
+
+  <!-- Config must load before app.js -->
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
