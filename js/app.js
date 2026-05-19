@@ -244,23 +244,11 @@ async function loadDistrictBoundaries() {
     if (!r.ok) throw new Error("HTTP " + r.status);
     const geojson = await r.json();
 
-    // National outline — always visible
-    const nationalOutline = L.geoJSON(geojson, {
-      style: {
-        color:       "#222",
-        weight:      2,
-        fillOpacity: 0,
-      },
-      pane: "boundaryPane",
-    }).addTo(map);
-    imageOverlays.nationalBoundary = nationalOutline;
-
-    // District layer — togglable, off by default
+    // Single togglable district layer — off by default (matches state.visibleLayers.adminBoundaries)
     districtLayer = L.geoJSON(geojson, {
       style: {
-        color:       "#444",
-        weight:      1,
-        dashArray:   "3 3",
+        color:       "#222",
+        weight:      1.5,
         fillOpacity: 0,
       },
       pane: "boundaryPane",
@@ -274,6 +262,7 @@ async function loadDistrictBoundaries() {
       },
     });
 
+    // Only add to map if the toggle is on (default is off)
     if (state.visibleLayers.adminBoundaries) districtLayer.addTo(map);
     console.log("[app] District boundaries loaded from GeoJSON");
   } catch (err) {
