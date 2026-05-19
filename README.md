@@ -2,7 +2,7 @@
 
 Interactive web map tracking deforestation, urban growth, and agricultural expansion across Uganda (2001–2025).
 
-**Live site:** https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/
+**Live site:** https://Bhavya-TT.github.io/Uganda-Forest-Loss-Platform/
 
 ## Data sources
 - **Forest Cover:** Hansen Global Forest Change v1.11 (Hansen/UMD/Google/USGS/NASA)
