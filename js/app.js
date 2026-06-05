@@ -221,7 +221,6 @@ async function initMap() {
   preloadAllImages();
   updateLegend();
   updateMetadataPanel();
-  displayStatistics();
 }
 
 // ---------------------------------------------------------------------------
@@ -249,7 +248,6 @@ async function loadDistrictBoundaries() {
         layer.bindTooltip(name, { sticky: true, opacity: 0.85 });
         layer.on("click", () => {
           state.selectedDistrictName = name;
-          displayStatistics();
         });
       },
     });
@@ -382,16 +380,15 @@ function advanceYear(slider, playBtn, maxYear) {
   const next = parseInt(slider.value, 10) + 1;
   if (next > maxYear) { stopPlayback(slider, playBtn); return; }
   slider.value = next;
-  setYear(next, true);
+  setYear(next);
 }
 
-function setYear(year, skipStats = false) {
+function setYear(year) {
   state.currentYear = year;
   document.getElementById("current-year-label").textContent = year;
   updateChangeLayers(year);
   updateMetadataPanel();
   updateLegend();
-  if (!skipStats) displayStatistics();
 }
 
 function startPlayback(slider, playBtn, maxYear, speedMultiplier = 1) {
@@ -404,7 +401,6 @@ function stopPlayback(slider, playBtn) {
   state.isPlaying = false;
   playBtn.textContent = "▶ Play";
   clearInterval(state.playInterval);
-  displayStatistics();
 }
 
 // ---------------------------------------------------------------------------
@@ -457,21 +453,7 @@ function updateMetadataPanel() {
   });
 }
 
-// ---------------------------------------------------------------------------
-// Statistics — static display (no WFS backend)
-// Displays the selected district name and current year.
-// Replace with pre-computed JSON files if you add a data/stats/ folder.
-// ---------------------------------------------------------------------------
 
-function displayStatistics() {
-  updateMetadataPanel();
-  const scope = state.selectedDistrictName
-    ? `District: ${state.selectedDistrictName}`
-    : "National";
-  document.getElementById("stats-scope-label").textContent = scope;
-  document.getElementById("stats-content").innerHTML =
-    `<p class="stats-no-data">Statistics for ${state.currentYear} — connect a data source to populate this panel.</p>`;
-}
 
 // ---------------------------------------------------------------------------
 // Map click — identify district from GeoJSON layer
@@ -505,7 +487,6 @@ function handleMapClick(e) {
 
   if (name) {
     state.selectedDistrictName = name;
-    displayStatistics();
   }
 }
 
